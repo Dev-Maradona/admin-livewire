@@ -1,0 +1,33 @@
+v1.0.0
+#########################
+#########################
+
+        1.Make validation much better because updateMethods not have validation (Done)
+        2.make in post (Status) to see a post if Active, Pinding, Refused, Draft, Testing (Done)
+        3.make status in comment (Done)
+        4.make post_id in comment in edit (Done)
+        5.make a space for front end (Done)
+        6.make multi auth for admin and user (Done)
+        7.create login component (Done)
+        8.add post category (Done)
+        9.create dashboard Analytics (Done)
+        10.make product user_id and admin_id (Done)
+        11.make post admin_id (Done)
+        12.Make labels for forms
+
+#########################
+#########################
+v1.0.1
+#########################
+#########################
+
+        1.Make real time notifications and notifications page (Done)
+        2.Make real time messages and messages page (Done)
+        3.Make Avatar for Admin and for users (Done)
+        4.Make Photos for products (Done)
+        5.Make Photos for Posts in blog (Done)
+        6.Make Profile page and setting on it (For change password, profileImage, or name or something else) (Done)
+        7.Improve Notifications & Messages Front end design (Done)
+        8.Fix dashboard active section (Done)
+9.Make Plugin for writing posts and contents and bla bla
+10.fix selected category required with just one category (Make just one category and try to create a post)

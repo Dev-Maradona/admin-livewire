@@ -1,12 +1,21 @@
 <?php
 
+// Route
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Livewire\Dashboard;
-use App\Http\Livewire\Profile;
-use App\Http\Livewire\Users;
-use App\Http\Livewire\Products;
-use App\Http\Livewire\Login;
+// Livewire Components (For Admin)
+use App\Http\Livewire\Admin\Pages\Dashboard;
+use App\Http\Livewire\Admin\Pages\Profile;
+use App\Http\Livewire\Admin\Pages\Users;
+use App\Http\Livewire\Admin\Pages\Products;
+use App\Http\Livewire\Admin\Pages\Category;
+use App\Http\Livewire\Admin\Pages\Posts;
+use App\Http\Livewire\Admin\Pages\Comments;
+use App\Http\Livewire\Admin\Pages\Login;
+use App\Http\Livewire\Admin\Pages\Messages;
+use App\Http\Livewire\Admin\Pages\Notifications;
+// Livewire Components (For Site)
+use App\Http\Livewire\Site\Pages\Home;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,28 +28,56 @@ use App\Http\Livewire\Login;
 |
 */
 
-Route::get('/', function () {
-    return 'Dashboard works fine in /dashboard';
+/* Website
+#############*/
+Route::name('site.')->group(function() {
+    // Guest
+    Route::middleware('guest:web')->group(function() {
+        Route::get('/', Home::class);
+    });
+
+    // Auth
+    Route::middleware('auth:web')->group(function() {
+        // 
+    });
 });
 
-// Dashboard
-Route::get('/dashboard', Dashboard::class);
-Route::get('/profile', Profile::class);
-Route::get('/users', Users::class);
-Route::get('/products', Products::class);
-Route::get('/login', Login::class);
 
-// Blog
-Route::view('/categories', 'categories');
-Route::view('/posts', 'posts');
-Route::view('/comments', 'comments');
+/* Admin Panel
+##############*/
+Route::prefix('admin')->name('admin.')->group(function() {
 
-// Views
-Route::view('/blank', 'blank');
+    // Guest
+    Route::middleware('guest:admin')->group(function() {
+        Route::get('/login', Login::class)->name('login');
+    });
 
-// Components & Helpers
-Route::view('/icons', 'icons');
-Route::view('/buttons', 'buttons');
-Route::view('/cards', 'cards');
-Route::view('/forms', 'forms');
-Route::view('/typography', 'typography');
+    // Auth
+    Route::middleware('auth:admin')->group(function() {
+
+        // Main
+        Route::get('/dashboard', Dashboard::class)->name('dashboard');
+        Route::get('/profile', Profile::class)->name('profile');
+        Route::get('/users', Users::class)->name('users');
+        Route::get('/products', Products::class)->name('products');
+
+        // Blog
+        Route::get('/categories', Category::class)->name('categories');
+        Route::get('/posts', Posts::class)->name('posts');
+        Route::get('/comments', Comments::class)->name('comments');
+
+        // Views
+        Route::view('/blank', 'livewire.admin.helpers.blank')->name('blank');
+
+        // Notifications & Messages
+        Route::get('/notifications', Notifications::class)->name('notifications');
+        Route::get('/messages', Messages::class)->name('messages');
+
+        // Components & Helpers
+        Route::view('/icons', 'livewire.admin.helpers.icons')->name('icons');
+        Route::view('/buttons', 'livewire.admin.helpers.buttons')->name('buttons');
+        Route::view('/cards', 'livewire.admin.helpers.cards')->name('cards');
+        Route::view('/forms', 'livewire.admin.helpers.forms')->name('forms');
+        Route::view('/typography', 'livewire.admin.helpers.typography')->name('typography');
+    });
+});
